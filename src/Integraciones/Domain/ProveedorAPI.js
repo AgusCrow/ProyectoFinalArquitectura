@@ -1,0 +1,1 @@
+// Entidad para integración con proveedores externos

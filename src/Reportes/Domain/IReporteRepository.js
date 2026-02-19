@@ -1,0 +1,1 @@
+// Interfaz para persistencia de reportes

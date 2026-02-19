@@ -1,0 +1,1 @@
+// Publicador de eventos de productos en Kafka

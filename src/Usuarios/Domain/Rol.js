@@ -1,0 +1,1 @@
+// Representa un rol de usuario

@@ -1,0 +1,1 @@
+// Representa un ítem dentro de un pedido

@@ -1,0 +1,1 @@
+// Entidad principal del dominio de compras
