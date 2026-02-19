@@ -5,19 +5,24 @@ Este diagrama muestra la visión global del sistema E-Market Multiplataforma, su
 ```mermaid
 C4Context
     title E-Market Multiplataforma - Contexto
+    
     Person(cliente, "Cliente", "Navega, compra y sigue pedidos")
     Person(proveedor, "Proveedor Externo", "Gestiona catálogo y ventas")
     Person(admin, "Administrador OpenMarket", "Supervisa y gestiona la plataforma")
+    
     System(system, "E-Market Multiplataforma", "Plataforma central de comercio electrónico")
+    
     System_Ext(pagos, "Pasarela de Pagos", "Procesa transacciones financieras")
     System_Ext(logistica, "Servicio de Logística", "Gestiona envíos y seguimiento")
     System_Ext(notif, "Servicio de Notificaciones", "Envía emails y SMS")
-    cliente -> system : Navega, compra, consulta pedidos
-    proveedor -> system : Sincroniza catálogo, gestiona ventas
-    admin -> system : Administra usuarios y disputas
-    system -> pagos : Solicita procesamiento de pagos
-    system -> logistica : Solicita y consulta envíos
-    system -> notif : Envía notificaciones a usuarios
+
+    Rel(cliente, system, "Navega, compra, consulta pedidos")
+    Rel(proveedor, system, "Sincroniza catálogo, gestiona ventas")
+    Rel(admin, system, "Administra usuarios y disputas")
+    
+    Rel(system, pagos, "Solicita procesamiento de pagos", "HTTPS/API")
+    Rel(system, logistica, "Solicita y consulta envíos", "HTTPS/API")
+    Rel(system, notif, "Envía notificaciones a usuarios", "SMTP/SMS Gateway")
 ```
 
 **Explicación:**

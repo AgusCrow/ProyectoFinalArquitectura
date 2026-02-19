@@ -5,6 +5,9 @@ Este diagrama describe la estructura principal de despliegue del sistema E-Marke
 ```mermaid
 C4Container
     title E-Market Multiplataforma - Contenedores
+    
+    Person(cliente, "Cliente", "Usuario final del sistema")
+
     System_Boundary(system, "E-Market Multiplataforma") {
       Container(web, "Web App", "React/Next.js", "Interfaz web para clientes")
       Container(mobile, "Mobile App", "React Native", "App móvil para clientes")
@@ -15,19 +18,20 @@ C4Container
       Container(inv, "Microservicio Inventario", "Node.js/.NET", "Control de stock")
       Container(kafka, "Bus de Eventos", "Kafka", "Comunicación asíncrona")
     }
-    Person(cliente, "Cliente")
-    cliente -> web : Usa
-    cliente -> mobile : Usa
-    web -> api : REST
-    mobile -> api : REST
-    api -> cat : REST
-    api -> ord : REST
-    api -> pay : REST
-    api -> inv : REST
-    cat -> kafka : Publica eventos
-    ord -> kafka : Publica/consume eventos
-    pay -> kafka : Publica/consume eventos
-    inv -> kafka : Publica/consume eventos
+
+    Rel(cliente, web, "Usa", "HTTPS")
+    Rel(cliente, mobile, "Usa", "HTTPS")
+    Rel(web, api, "Llamadas API", "JSON/HTTPS")
+    Rel(mobile, api, "Llamadas API", "JSON/HTTPS")
+    Rel(api, cat, "Enruta a", "gRPC/REST")
+    Rel(api, ord, "Enruta a", "gRPC/REST")
+    Rel(api, pay, "Enruta a", "gRPC/REST")
+    Rel(api, inv, "Enruta a", "gRPC/REST")
+    
+    Rel(cat, kafka, "Publica eventos", "Async")
+    Rel(ord, kafka, "Publica/consume", "Async")
+    Rel(pay, kafka, "Publica/consume", "Async")
+    Rel(inv, kafka, "Publica/consume", "Async")
 ```
 
 **Explicación:**

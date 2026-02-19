@@ -6,18 +6,19 @@ Este diagrama muestra la estructura interna del microservicio de Órdenes, uno d
 C4Component
     title Microservicio Órdenes - Componentes
     Container_Boundary(ord, "Microservicio Órdenes") {
-      Component(api, "OrderController", "REST Controller", "Expone endpoints de pedidos para clientes y otros servicios.")
-      Component(app, "OrderService", "Aplicación", "Gestiona los casos de uso: crear, cancelar y consultar pedidos.")
-      Component(domain, "OrderDomain", "Dominio", "Entidades y reglas de negocio: validación de estados, cálculo de totales.")
-      Component(repo, "OrderRepository", "Puerto de salida", "Interfaz para persistencia de pedidos.")
-      Component(pg, "PostgresRepository", "Adaptador", "Implementación concreta usando PostgreSQL.")
-      Component(pub, "EventPublisher", "Adaptador", "Publica eventos en Kafka para notificaciones y sincronización.")
+      Component(api, "OrderController", "REST Controller", "Expone endpoints de pedidos.")
+      Component(app, "OrderService", "Aplicación", "Gestiona los casos de uso.")
+      Component(domain, "OrderDomain", "Dominio", "Entidades y reglas de negocio.")
+      Component(repo, "OrderRepository", "Puerto de salida", "Interfaz para persistencia.")
+      Component(pg, "PostgresRepository", "Adaptador", "Implementación concreta.")
+      Component(pub, "EventPublisher", "Adaptador", "Publica eventos en Kafka.")
     }
-    api -> app : Invoca casos de uso
-    app -> domain : Usa entidades y reglas
-    app -> repo : Persiste pedidos
-    repo -> pg : Implementa persistencia
-    app -> pub : Publica eventos
+
+    Rel(api, app, "Invoca casos de uso")
+    Rel(app, domain, "Usa entidades y reglas")
+    Rel(app, repo, "Persiste pedidos")
+    Rel(repo, pg, "Implementa persistencia")
+    Rel(app, pub, "Publica eventos")
 ```
 
 **Explicación:**
