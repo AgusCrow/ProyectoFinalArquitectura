@@ -5,7 +5,7 @@
 La priorización de características se realizó mediante una matriz de impacto y urgencia, considerando los objetivos de negocio, riesgos del dominio multi-vendedor y requerimientos funcionales. Participó todo el equipo, ponderando especialmente la escalabilidad y disponibilidad, dado el modelo multi-vendedor y la criticidad del negocio en línea. La seguridad fue priorizada por requerimientos legales y de confianza. El rendimiento y la extensibilidad se consideraron claves para la experiencia de usuario y la evolución futura del sistema.
 
 | Característica   | Prioridad | Impacto en el Negocio         | Justificación Técnica                                                                 |
------|
+| --- | --- | --- | --- |
 | Escalabilidad    | Alta      | Crítico para el crecimiento   | Soportar picos de tráfico y expansión de proveedores sin degradación de rendimiento.  |
 | Disponibilidad   | Alta      | Vital para la retención       | El tiempo de inactividad impacta ventas y reputación.                                 |
 | Seguridad        | Alta      | Legal y confianza             | Manejo de pagos y datos requiere altos estándares de protección.                      |
