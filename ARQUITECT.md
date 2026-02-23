@@ -21,7 +21,7 @@ La priorización de características se realizó mediante una matriz de impacto 
 Se evaluaron estilos como monolito modular y microkernel, pero se descartaron por su limitada escalabilidad y flexibilidad. La combinación de microservicios, arquitectura hexagonal y Event-Driven Architecture (EDA) permite autonomía de equipos, integración sencilla de nuevos servicios y resiliencia ante fallos parciales. Por ejemplo, si la pasarela de pagos falla, el resto del sistema sigue operativo y el usuario es notificado. Esta decisión se fundamenta en la necesidad de soportar crecimiento, cambios y alta demanda, así como en la facilidad para integrar nuevos proveedores y tecnologías.
 
 | Estilo                | Ventajas para OpenMarket                                   | Desafíos Mitigados                                         |
-----|
+| --- | --- | --- |
 | Monolito Modular      | Simplicidad inicial, fácil despliegue                     | No escala bien con múltiples equipos y grandes catálogos    |
 | Microservicios        | Escalabilidad, autonomía, despliegue continuo             | Gestiona la complejidad de múltiples dominios de negocio    |
 | Hexagonal             | Alta testabilidad, desacoplamiento de frameworks/DB       | Protege la lógica de negocio de la obsolescencia técnica    |
