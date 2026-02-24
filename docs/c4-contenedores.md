@@ -40,6 +40,9 @@ C4Container
         ContainerDb(pgord, "PostgreSQL Compras", "SQL", "Almacena pedidos con integridad transaccional")
         ContainerDb(pgpay, "PostgreSQL Pagos", "SQL", "Almacena transacciones de pago")
         ContainerDb(pgusr, "PostgreSQL Usuarios", "SQL", "Almacena usuarios, roles y permisos")
+        ContainerDb(pglog, "PostgreSQL Logística", "SQL", "Almacena envíos, tracking y estados de entrega")
+        ContainerDb(pgint, "PostgreSQL Integraciones", "SQL", "Configuraciones de proveedores y logs de sincronización")
+        ContainerDb(pgrep, "PostgreSQL Reportes", "SQL", "Definiciones de reportes y datos agregados")
       }
     }
 
@@ -66,6 +69,9 @@ C4Container
     Rel(ord, pgord, "Lee/Escribe", "Driver PostgreSQL")
     Rel(pay, pgpay, "Lee/Escribe", "Driver PostgreSQL")
     Rel(usr, pgusr, "Lee/Escribe", "Driver PostgreSQL")
+    Rel(log, pglog, "Lee/Escribe", "Driver PostgreSQL")
+    Rel(int, pgint, "Lee/Escribe", "Driver PostgreSQL")
+    Rel(rep, pgrep, "Lee/Escribe", "Driver PostgreSQL")
 
     Rel(cat, kafka, "Publica eventos", "Async")
     Rel(ord, kafka, "Publica/consume", "Async")
@@ -88,7 +94,7 @@ C4Container
 | **Enrutamiento** | API Gateway | Punto único de entrada, auth, rate limiting |
 | **Microservicios** | Catálogo, Usuarios, Compras, Pagos, Logística, Integraciones, Reportes | Lógica de negocio dividida por dominio |
 | **Mensajería** | Kafka | Comunicación asíncrona y desacoplada |
-| **Persistencia** | MongoDB, PostgreSQL (x3) | Almacenamiento políglota según necesidad de cada dominio |
+| **Persistencia** | MongoDB, PostgreSQL (x6) | Almacenamiento políglota según necesidad de cada dominio |
 
 Esta organización visual facilita entender cómo fluyen las peticiones: Frontend → Gateway → Microservicio → DB/Kafka, manteniendo cada capa independiente y escalable.
 
