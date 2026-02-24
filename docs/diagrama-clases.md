@@ -1,6 +1,8 @@
-# Diagrama de Clases - Componente Crítico: Pedidos
+# Diagrama de Clases - Componentes Críticos
 
-Se selecciona el componente "Pedidos" por su centralidad en el dominio y su relevancia para el cálculo de métricas de distancia desde la secuencia principal.
+Se seleccionan los componentes del microservicio de **Compras** y del microservicio de **Pagos** por su centralidad en el dominio y su relevancia para el cálculo de métricas de distancia desde la secuencia principal.
+
+## Diagrama de clases — Dominio de Compras
 
 ```mermaid
 classDiagram
@@ -35,12 +37,72 @@ classDiagram
     Pedido "1" -- "1" Cliente : pertenece a
 ```
 
+## Diagrama de componentes — Microservicio Compras
+
+Este diagrama muestra las dependencias entre los componentes internos del microservicio, organizados según la arquitectura hexagonal. Es la base para el cálculo de métricas del punto 6.
+
+```mermaid
+classDiagram
+    class PedidoController {
+        <<Puerto de entrada>>
+        +crearPedido()
+        +cancelarPedido()
+        +obtenerPedido()
+    }
+    class CrearPedidoService {
+        <<Caso de uso>>
+        +ejecutar()
+    }
+    class CancelarPedidoService {
+        <<Caso de uso>>
+        +ejecutar()
+    }
+    class Pedido {
+        <<Entidad de dominio>>
+        +CalcularTotal()
+        +AgregarItem()
+        +Cancelar()
+    }
+    class LineItem {
+        <<Entidad de dominio>>
+        +cantidad
+        +subtotal
+    }
+    class IPedidoRepository {
+        <<Interfaz / Puerto de salida>>
+        +guardar()
+        +buscarPorId()
+        +actualizar()
+    }
+    class PedidoRepositoryPostgres {
+        <<Adaptador de salida>>
+        +guardar()
+        +buscarPorId()
+        +actualizar()
+    }
+    class PedidoEventPublisherKafka {
+        <<Adaptador de salida>>
+        +publicar()
+    }
+
+    PedidoController --> CrearPedidoService
+    PedidoController --> CancelarPedidoService
+    CrearPedidoService --> Pedido
+    CrearPedidoService --> IPedidoRepository
+    CrearPedidoService --> PedidoEventPublisherKafka
+    CancelarPedidoService --> Pedido
+    CancelarPedidoService --> IPedidoRepository
+    CancelarPedidoService --> PedidoEventPublisherKafka
+    Pedido --> LineItem
+    PedidoRepositoryPostgres ..|> IPedidoRepository
+```
+
 **Explicación:**
 - Solo se incluyen atributos y métodos esenciales para el análisis arquitectónico y de métricas.
-- El método `CalcularTotal()` permite analizar la lógica de negocio y dependencias.
-- `AgregarItem()` y `Cancelar()` reflejan operaciones clave del ciclo de vida del pedido.
-- El modelo permite calcular métricas de abstracción, inestabilidad y distancia desde la secuencia principal a nivel de componente.
-- Se recomienda priorizar el análisis sobre el componente completo (Pedidos) y no sobre clases individuales.
+- El diagrama de dominio muestra las entidades y sus relaciones (Pedido, LineItem, Cliente, Producto).
+- El diagrama de componentes muestra las dependencias entre capas hexagonales: los controladores dependen de los servicios de aplicación, estos dependen del dominio y de los puertos de salida, y los adaptadores implementan las interfaces.
+- Las flechas representan dependencias que se usan para calcular Ca (acoplamiento aferente) y Ce (acoplamiento eferente) en el punto 6.
+- Se priorizó el análisis a nivel de componentes sobre clases individuales, como recomienda la actividad.
 
 **Justificación de la elección:**
-El dominio de Pedidos es crítico porque orquesta la relación entre clientes, productos y pagos, y es el punto central para la trazabilidad y el análisis de calidad estructural del sistema.
+El dominio de Compras/Pedidos es crítico porque orquesta la relación entre clientes, productos y pagos, y es el punto central para la trazabilidad y el análisis de calidad estructural del sistema. Además, permite observar claramente la separación hexagonal y calcular métricas significativas.
