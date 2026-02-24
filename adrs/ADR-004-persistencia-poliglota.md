@@ -19,3 +19,4 @@ Cada microservicio gestionará su propia base de datos, eligiendo la tecnología
 - Permite optimizar el almacenamiento y rendimiento según el dominio.
 - Facilita la evolución independiente de cada microservicio.
 - Requiere patrones de gestión de transacciones distribuidas (como Saga) y mayor esfuerzo de administración de datos.
+- **Nota de implementación (fase inicial):** Aunque cada microservicio tiene su propia base de datos lógica (separación por schemas), en la fase inicial del proyecto todas las bases de datos PostgreSQL pueden desplegarse en una sola instancia física para optimizar costos de infraestructura. Esta separación lógica permite migrar a instancias físicas independientes cuando el tráfico lo justifique, sin cambios en el código de los servicios.

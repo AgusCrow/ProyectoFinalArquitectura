@@ -41,7 +41,8 @@ C4Context
 </br>
 
 **Explicación:**
-- **Cliente:** Usuario final que navega, compra y realiza seguimiento de pedidos.
+
+- **Cliente:** Usuario final que navega, compra y realiza seguimiento de pedidos. El sistema soporta acceso vía **Web** (navegador) y **Mobile** (aplicación nativa) para maximizar el alcance y adaptarse a diferentes preferencias de uso. Esto responde al requerimiento de "multiplataforma" del escenario de negocio.
 - **Proveedor Externo:** Empresas que cargan y actualizan su inventario, gestionan ventas y reciben notificaciones.
 - **Administrador:** Personal de OpenMarket que gestiona usuarios, resuelve disputas y supervisa la operación.
 - **Gestor de Marketing:** Responsable de campañas promocionales, gestión de cupones y consulta de reportes de ventas segmentados.

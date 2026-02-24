@@ -1,7 +1,13 @@
 # Informe de Arquitectura
 - **Nombre del Proyecto:** E-Market Multiplataforma (OpenMarket Corp.)
-- **Equipo:** Agustin De Luca, Francisco Chahla, Guido Mamani, Luciano Moise, Valentin Coria
+- **Equipo:** Agustin De Luca, Francisco Chahla, Guido Mamani, Valentin Coria
 - **Dominio:** Sistema de E-Commerce (Multi-vendedor)
+
+## Asunciones y Restricciones
+
+- **Presupuesto e infraestructura:** Se asume que OpenMarket Corp dispone de presupuesto y capacidad operativa suficientes para soportar una arquitectura de microservicios con Event-Driven Architecture (EDA) híbrida. Esto incluye costos de servidores/contenedores, licencias, monitoreo, y personal DevOps.
+- **Equipo técnico:** Se asume disponibilidad de equipos de desarrollo con experiencia en Node.js, arquitectura hexagonal, y operación de Kafka.
+- **Tiempo de desarrollo:** La arquitectura propuesta requiere más tiempo de desarrollo inicial (por la complejidad de microservicios) pero ofrece mejor escalabilidad y mantenibilidad a largo plazo.
 
 
 ## 1. Priorización de características de arquitectura
@@ -48,7 +54,7 @@ La priorización de características se realizó mediante una matriz de impacto 
 
 ## 2. Estilo arquitectónico seleccionado
 
-- **Arquitecturas seleccionadas:** ✅ Microservices + ✅ Event-Driven (complementado con patrón Hexagonal)
+- **Arquitecturas seleccionadas:** Microservices + Event-Driven Hibrido (complementado con patrón Hexagonal)
 
 ### Matriz comparativa — Características vs Estilos
 
@@ -124,7 +130,6 @@ La autoevaluación se realizó de manera colaborativa, considerando la participa
 - Agustin De Luca: 5/5
 - Francisco Chahla: 5/5
 - Guido Mamani: 5/5
-- Luciano Moise: 5/5
 - Valentin Coria: 5/5
 
 
