@@ -13,7 +13,8 @@ C4Container
     
     Person(cliente, "Cliente", "Usuario final del sistema")
     Person(proveedor, "Proveedor Externo", "Gestiona catálogo y ventas")
-    Person(admin, "Administrador / Marketing", "Supervisa, gestiona campañas y reportes")
+    Person(admin, "Administrador", "Supervisa usuarios, disputas y operación")
+    Person(marketing, "Gestor de Marketing", "Gestiona campañas, cupones y consulta reportes")
 
     System_Boundary(system, "E-Market Multiplataforma") {
       
@@ -54,11 +55,13 @@ C4Container
     System_Ext(extpagos, "Pasarela de Pagos", "Stripe, PayPal")
     System_Ext(extlog, "Servicio de Logística", "Transportistas externos")
     System_Ext(extnotif, "Servicio de Notificaciones", "Email/SMS Gateway")
+    System_Ext(extcupones, "Plataforma de Cupones/Descuentos", "Provee cupones y promociones de terceros")
 
     Rel(cliente, web, "Usa", "HTTPS")
     Rel(cliente, mobile, "Usa", "HTTPS")
     Rel(proveedor, web, "Gestiona catálogo", "HTTPS")
-    Rel(admin, web, "Administra y consulta reportes", "HTTPS")
+    Rel(admin, web, "Administra plataforma", "HTTPS")
+    Rel(marketing, web, "Gestiona campañas y reportes", "HTTPS")
     Rel(web, api, "Llamadas API", "JSON/HTTPS")
     Rel(mobile, api, "Llamadas API", "JSON/HTTPS")
 
@@ -89,6 +92,7 @@ C4Container
     Rel(pay, extpagos, "Procesa pagos", "HTTPS/API")
     Rel(log, extlog, "Consulta envíos", "HTTPS/API")
     Rel(int, extnotif, "Envía notificaciones", "SMTP/API")
+    Rel(ord, extcupones, "Valida y aplica cupones", "HTTPS/API")
 ```
 
 
