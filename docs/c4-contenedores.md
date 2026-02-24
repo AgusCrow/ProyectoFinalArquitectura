@@ -2,6 +2,11 @@
 
 Este diagrama describe la estructura principal de despliegue del sistema E-Market Multiplataforma, mostrando los contenedores (aplicaciones, servicios, bases de datos) y sus tecnologías clave. Se organizaron los contenedores en capas lógicas para mayor claridad.
 
+![Descripción de la imagen del diagrama](./../public/c4-container-diagram.png)
+
+<details>
+<summary>Codigo del diagrama visualizado en la imagen</summary>
+
 ```mermaid
 C4Container
     title E-Market Multiplataforma - Contenedores
@@ -85,6 +90,11 @@ C4Container
     Rel(log, extlog, "Consulta envíos", "HTTPS/API")
     Rel(int, extnotif, "Envía notificaciones", "SMTP/API")
 ```
+
+
+</details>
+
+</br>
 
 **Estructura de capas:**
 

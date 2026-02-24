@@ -2,6 +2,11 @@
 
 Este diagrama muestra la estructura interna del microservicio de Compras (Órdenes), uno de los componentes críticos del sistema E-Market Multiplataforma. Se utiliza arquitectura hexagonal (puertos y adaptadores) para aislar la lógica de negocio de las dependencias externas, facilitando la mantenibilidad y la evolución del sistema.
 
+![Descripción de la imagen del diagrama](./../public/c4-component-diagram.png)
+
+<details>
+<summary>Codigo del diagrama visualizado en la imagen</summary>
+
 ```mermaid
 C4Component
     title Microservicio Compras - Componentes (Arquitectura Hexagonal)
@@ -33,6 +38,10 @@ C4Component
     Rel(cancelarSvc, pub, "Publica PedidoCancelado")
     Rel(pub, kafka, "Envía eventos", "Async")
 ```
+
+</details>
+
+</br>
 
 **Explicación:**
 - **PedidoController (Puerto de entrada):** Recibe las solicitudes HTTP desde el API Gateway y las traduce a comandos de aplicación.
