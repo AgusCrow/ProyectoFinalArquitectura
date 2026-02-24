@@ -2,13 +2,19 @@
 
 Este diagrama describe la estructura principal de despliegue del sistema E-Market Multiplataforma, mostrando los contenedores (aplicaciones, servicios, bases de datos) y sus tecnologías clave. Se organizaron los contenedores en capas lógicas para mayor claridad.
 
+![Descripción de la imagen del diagrama](./../public/c4-container-diagram.png)
+
+<details>
+<summary>Codigo del diagrama visualizado en la imagen</summary>
+
 ```mermaid
 C4Container
     title E-Market Multiplataforma - Contenedores
     
     Person(cliente, "Cliente", "Usuario final del sistema")
     Person(proveedor, "Proveedor Externo", "Gestiona catálogo y ventas")
-    Person(admin, "Administrador / Marketing", "Supervisa, gestiona campañas y reportes")
+    Person(admin, "Administrador", "Supervisa usuarios, disputas y operación")
+    Person(marketing, "Gestor de Marketing", "Gestiona campañas, cupones y consulta reportes")
 
     System_Boundary(system, "E-Market Multiplataforma") {
       
@@ -40,17 +46,22 @@ C4Container
         ContainerDb(pgord, "PostgreSQL Compras", "SQL", "Almacena pedidos con integridad transaccional")
         ContainerDb(pgpay, "PostgreSQL Pagos", "SQL", "Almacena transacciones de pago")
         ContainerDb(pgusr, "PostgreSQL Usuarios", "SQL", "Almacena usuarios, roles y permisos")
+        ContainerDb(pglog, "PostgreSQL Logística", "SQL", "Almacena envíos, tracking y estados de entrega")
+        ContainerDb(pgint, "PostgreSQL Integraciones", "SQL", "Configuraciones de proveedores y logs de sincronización")
+        ContainerDb(pgrep, "PostgreSQL Reportes", "SQL", "Definiciones de reportes y datos agregados")
       }
     }
 
     System_Ext(extpagos, "Pasarela de Pagos", "Stripe, PayPal")
     System_Ext(extlog, "Servicio de Logística", "Transportistas externos")
     System_Ext(extnotif, "Servicio de Notificaciones", "Email/SMS Gateway")
+    System_Ext(extcupones, "Plataforma de Cupones/Descuentos", "Provee cupones y promociones de terceros")
 
     Rel(cliente, web, "Usa", "HTTPS")
     Rel(cliente, mobile, "Usa", "HTTPS")
     Rel(proveedor, web, "Gestiona catálogo", "HTTPS")
-    Rel(admin, web, "Administra y consulta reportes", "HTTPS")
+    Rel(admin, web, "Administra plataforma", "HTTPS")
+    Rel(marketing, web, "Gestiona campañas y reportes", "HTTPS")
     Rel(web, api, "Llamadas API", "JSON/HTTPS")
     Rel(mobile, api, "Llamadas API", "JSON/HTTPS")
 
@@ -66,6 +77,9 @@ C4Container
     Rel(ord, pgord, "Lee/Escribe", "Driver PostgreSQL")
     Rel(pay, pgpay, "Lee/Escribe", "Driver PostgreSQL")
     Rel(usr, pgusr, "Lee/Escribe", "Driver PostgreSQL")
+    Rel(log, pglog, "Lee/Escribe", "Driver PostgreSQL")
+    Rel(int, pgint, "Lee/Escribe", "Driver PostgreSQL")
+    Rel(rep, pgrep, "Lee/Escribe", "Driver PostgreSQL")
 
     Rel(cat, kafka, "Publica eventos", "Async")
     Rel(ord, kafka, "Publica/consume", "Async")
@@ -78,7 +92,13 @@ C4Container
     Rel(pay, extpagos, "Procesa pagos", "HTTPS/API")
     Rel(log, extlog, "Consulta envíos", "HTTPS/API")
     Rel(int, extnotif, "Envía notificaciones", "SMTP/API")
+    Rel(ord, extcupones, "Valida y aplica cupones", "HTTPS/API")
 ```
+
+
+</details>
+
+</br>
 
 **Estructura de capas:**
 
@@ -88,7 +108,7 @@ C4Container
 | **Enrutamiento** | API Gateway | Punto único de entrada, auth, rate limiting |
 | **Microservicios** | Catálogo, Usuarios, Compras, Pagos, Logística, Integraciones, Reportes | Lógica de negocio dividida por dominio |
 | **Mensajería** | Kafka | Comunicación asíncrona y desacoplada |
-| **Persistencia** | MongoDB, PostgreSQL (x3) | Almacenamiento políglota según necesidad de cada dominio |
+| **Persistencia** | MongoDB, PostgreSQL (x6) | Almacenamiento políglota según necesidad de cada dominio |
 
 Esta organización visual facilita entender cómo fluyen las peticiones: Frontend → Gateway → Microservicio → DB/Kafka, manteniendo cada capa independiente y escalable.
 
